@@ -69,13 +69,14 @@ export async function updateTodo (req, res) {
     let id = req.params.id;
 
     try {
-        let { title, description } = req.body;
+        let { title, description, done } = req.body;
         const { rows } = await pool.query(
-            'UPDATE todos SET title = $1, description = $2 WHERE id = $3 RETURNING *',
+            'UPDATE todos SET title = $1, description = $2, done = $4 WHERE id = $3 RETURNING *',
             [
                 title, 
                 description, 
-                id
+                id,
+                done
             ]
         );
 
